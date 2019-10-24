@@ -53,6 +53,17 @@ app.post('/addtoarray', (request, response) => {
   response.send(array);
 });
 
+app.put('/updatePhonebook', (request, response) => {
+  for (let i = 0; i < contactInfo.length; i++) {
+    if (contactInfo[i].name === request.body.name) {
+      contactInfo[i].phone = request.body.newNumber;
+      console.log(contactInfo);
+      return response.send('updated number successfully');
+    }
+  }
+  return response.send('cannot find name please try again');
+});
+
 app.listen(3000, () => {
   console.log('server is running on port 3000');
 });
