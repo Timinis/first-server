@@ -53,6 +53,12 @@ app.post('/addtoarray', (request, response) => {
   response.send(array);
 });
 
+app.post('/addToPhonebook', (request, response) => {
+  contactInfo.push(request.body);
+  console.log(contactInfo);
+  response.send('add successful');
+});
+
 app.put('/updatePhonebook', (request, response) => {
   for (let i = 0; i < contactInfo.length; i++) {
     if (contactInfo[i].name === request.body.name) {
@@ -62,6 +68,17 @@ app.put('/updatePhonebook', (request, response) => {
     }
   }
   return response.send('cannot find name please try again');
+});
+
+app.delete('/deletePhonebook', (request, response) => {
+  for (let i = 0; i < contactInfo.length; i++) {
+    if (contactInfo[i].name === request.body.name) {
+      contactInfo.splice(i, 1);
+      console.log(contactInfo);
+      return response.send('delete successful');
+    }
+  }
+  return response.send('cannot find name');
 });
 
 app.listen(3000, () => {
